@@ -856,7 +856,7 @@ button{
 
  .overview{
  	background:#101010;
- 	z-index: 3;
+ 	z-index: 30;
  }
   .overview.hide{
   display: none;
@@ -886,6 +886,14 @@ button{
     padding: 5vw 0vw 2vw 0vw;
  }
 
+ .flo_txt{
+ position: absolute;
+    color: #ffffff2b;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 21px;
+    text-transform: capitalize;
+ }
  .column.edge_viz>svg{
     width: 60vw;
     height: auto;
@@ -939,6 +947,31 @@ button{
  stroke: #0000006b;
 }
 
+
+#overview_viz>#viz>g#GJ_name>path{
+  fill:#0000;
+}
+#overview_viz>#viz>g#RJ_name>path{
+  fill:#0000;
+}
+#overview_viz>#viz>g#KA_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#MH_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#UP_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#BR_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#OR_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#TG_name>path{
+  fill:#0000;
+}#overview_viz>#viz>g#JH_name>path{
+  fill:#0000;
+}
+#overview_viz>#viz>g#WB_name>path{
+  fill:#0000;
+}
 
 
 

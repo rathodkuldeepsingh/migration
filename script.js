@@ -930,7 +930,7 @@ $doc.ready(function(){
 						 $loaderAnim.remove();
 					},4000);
 					
-					$video.get(0).play();   //playvideo on button click
+					//$video.get(0).play();   //playvideo on button click
 
 					
 					//$svg.drawsvg('progress',0);
@@ -1074,7 +1074,7 @@ $doc.ready(function(){
 								case "name": highlightState(id[0],1);  break;
 								case "in": highlightLines(id[0],'in',1);  break;
 								case "out":  highlightLines(id[0],'out',1);  break;
-								case "weeks": highlightWeek(id[0],1);  break;
+								//case "weeks": highlightWeek(id[0],1);  break;
 								default : ;  break;
 
 
@@ -1083,12 +1083,13 @@ $doc.ready(function(){
 
 						},function(){
 							var id=this.id.split("_");
+							console.log("vapas");
 							switch(id[1])
 							{	
 								case "name": highlightState(id[0],0); break;
 								case "in": highlightLines(id[0],'in',0);  break;
 								case "out": highlightLines(id[0],'out',0); break;
-								case "weeks": highlightWeek(id[0],0);  break;
+								//case "weeks": highlightWeek(id[0],0);  break;
 								default:  break;
 
 							}
@@ -1096,14 +1097,18 @@ $doc.ready(function(){
 
 						});
 
-						//hover on death and clashes
+
+
+
+
+						//hover on death and clashes and weeks
 
 						$("#viz>g>path").hover(function(){
 							var id=$(this).parent()[0].id.split("_");
 							
 							$(".edge_viz").find(".temp").last().remove();
 							if(id[1]=="deaths" || id[1]=="clashes")
-							{	$(this).parent()[0].appendChild(this);
+							{	//$(this).parent()[0].appendChild(this);
 								$(this).css({"stroke":"white","stroke-width":"2px"});
 								var finaldata=fillData(this.id);
 								$('.edge_viz').append("<div class='temp'><p>"+finaldata[0]+"</p><a href='"+finaldata[1]+"' class='cusbut' target='_blank'>Read More</a><button>View Story</button> </div>");
@@ -1112,19 +1117,30 @@ $doc.ready(function(){
 								var topofpopup=givepos($(this))[1]-$('.edge_viz>.temp').height()-30;
 								$('.edge_viz>.temp').offset({left:givepos($(this))[0], top:(topofpopup)<$scrollTop? $scrollTop: topofpopup});
 							}
-							else{
-
+							else if (id[1]=="weeks"){
+								var cid=this.id
+								highlightWeek(cid,1);
 							}
 
 						}, function(){
-							$(this).css({"stroke":"","stroke-width":""});
-							
-							setTimeout(function(){
-								if(popup==0)
-								{	
-									//$(".edge_viz").find(".temp").last().remove();
+
+							var id=$(this).parent()[0].id.split("_");
+							if(id[1]=="deaths" || id[1]=="clashes")
+							{	
+								$(this).css({"stroke":"","stroke-width":""});
+								
+								setTimeout(function(){
+									if(popup==0)
+									{	
+										//$(".edge_viz").find(".temp").last().remove();
+									}
+								},500);
 								}
-							},500);
+							else if (id[1]=="weeks"){
+								var cid=this.id
+								highlightWeek(cid,0);
+							}
+							
 							
 							//$(this).parent().find('path').last().remove();
 
@@ -1194,7 +1210,7 @@ $doc.ready(function(){
 									var mousedisy=(event.pageY-x[1]);
 
 									movx=(40*mousedisx/w)-22;
-									movy=(30*mousedisy/w)-10;
+									movy=(40*mousedisy/w)-20;
 									
 									
 									if(mousedisx<w/2 && mousedisy<w/2)
@@ -1217,8 +1233,8 @@ $doc.ready(function(){
 							
 							}
 							
-							//console.log(x+","+h+","+w);
-							
+							$(".flo_txt").offset({left:givepos($('svg'))[0]+$('svg').width()*0.42,top:givepos($('svg'))[1]+$('svg').height()*0.62});
+							$(".flo_txt").css({'height':$('svg').width()*0.15,'width':$('svg').width()*0.16});
 
 						});
 						$('.edge_viz').mouseleave(function(event){
@@ -1242,15 +1258,15 @@ $doc.ready(function(){
 
 
 
-			/*	//without video play
+				//without video play
 					//$svg.drawsvg('progress',0.065);
 					//$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen});
 					$('body').css({"overflow-y":"scroll"});
 					$('#one>p').animate({"opacity":"1"},100);
 					$('#section10').css('opacity','1');
 					start=1;
-			*/	
-				//video play
+				
+			/*	//video play
 				$video.on('ended',function(){
 					$video.animate({"opacity":"0s"},23000,"swing");
 					$('#one>p').animate({"opacity":"1"},100);
@@ -1264,7 +1280,7 @@ $doc.ready(function(){
    			     	$('body').css({"overflow-y":"scroll"});
    			     	start=1;
     			});
-    			
+    		*/	
     			
 
    			 });
@@ -1829,15 +1845,29 @@ $doc.ready(function(){
     	if(status==1){
 
     		$("#overview_viz>#viz>g").css({"opacity":"0.1"});
+    		$("#overview_viz>#viz>g#Lines").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_weeks").css({"stroke-width":"0.2","stroke":"white","opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_in").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_out").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_name").css({"opacity":"1"});
-    		$("#overview_viz>#viz>#"+a+"_lines").css({"opacity":"1"});
+    		
     		$("#overview_viz>#viz>#"+a+"_clashes").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_deaths").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_in>path").css({"stroke-width":"0.2","stroke":"white"});
     		$("#overview_viz>#viz>#"+a+"_out>path").css({"stroke-width":"0.2","stroke":"white"});
+
+
+    		$('#overview_viz>#viz>g#Lines').children('path').each(function () {
+			   var id=this.id.split("_");
+			   //console.log(this.id+" , "+a);
+			   if(id[1]==a || id[2]==a){
+			   		$(this).css("opacity","1");
+			   		
+			   }else{
+			   		$(this).css("opacity","0.11");
+			   }
+			});
+
 
     	}
     	else{
@@ -1850,34 +1880,80 @@ $doc.ready(function(){
     }
 
     function highlightWeek(a,status){
-    	if(status==1){
+    	var i=a.split("_");
 
+    	if(status==1){
+    		//$(this).css('opacity','1');
+    		
+    		$("#viz>g>path").each(function(){
+    			var id=this.id.split("_");
+    			 if (id[1]==i[1] || id[3]==i[1] || id[2]==i[1] || id[0]==i[1]){
+    			 
+    			 	$(this).css('opacity','1');
+    			 	$('.flo_txt').text(i[1]);
+    			 }
+    			 else{
+    			 	$(this).css('opacity','0.11');
+    			 }
+
+    		});
     	}
     	else{
     		
+    		$("#viz>g>path").each(function(){$(this).css('opacity','1')});
+    		//$('.flo_txt').text("");
     	}
     }
+
+
+
     function highlightLines(a,which,status){
     	if(status==1 && which=="out"){
     		
-    		$("#overview_viz>#viz>g").css({"opacity":"0.1"});
-    		$("#overview_viz>#viz>#"+a+"_out").css({"opacity":"1"});
+    		//$("#overview_viz>#viz>g").css({"opacity":"0.1"});
+    		/*$("#overview_viz>#viz>#"+a+"_out").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_lines").css({"stroke-width":"","stroke":"","opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_out>path").css({"stroke-width":"0","stroke":"white","opacity":"1"});
+    		*/
+    		$('#overview_viz>#viz>g#Lines').children('path').each(function () {
+			   var id=this.id.split("_");
+			   //console.log(this.id+" , "+a);
+			   if(id[1]==a && id[0]=="lines"){
+			   		$(this).css("opacity","1");
+			   		
+			   }else{
+			   		$(this).css("opacity","0.11");
+			   }
+			});
+			
     		
     	}
     	else if(status==1 && which=="in"){
-    		$("#overview_viz>#viz>g").css({"opacity":"0.1"});
+    		//$("#overview_viz>#viz>g").css({"opacity":"0.1"});
 
-    		$("#overview_viz>#viz>#"+a+"_in").css({"opacity":"1"});
+    		/*$("#overview_viz>#viz>#"+a+"_in").css({"opacity":"1"});
     		$("#overview_viz>#viz>#"+a+"_in>path").css({"stroke-width":"0","stroke":"white","opacity":"1"});
+    		*/
+    		$('#overview_viz>#viz>g#Lines').children('path').each(function () {
+			   var id=this.id.split("_");
+			   if(id[2]==a && id[0]=="lines"){
+			   		$(this).css("opacity","1");
+			   	
+			   }else{
+			   		$(this).css("opacity","0.11");
+			   }
+			});
     		
     	}else{
+
+    		
     		$("#overview_viz>#viz>#"+a+"_in>path").css({"stroke-width":"","stroke":""});
     		$("#overview_viz>#viz>#"+a+"_out>path").css({"stroke-width":"","stroke":""});
-    		$("#overview_viz>#viz>#"+a+"_lines").css({"stroke-width":"","stroke":""});
+    		$("#overview_viz>#viz>g#Lines").css({"stroke-width":"","stroke":""});
+    		$("#overview_viz>#viz>g#Lines>path").css({"opacity":"1"});
     		$("#overview_viz>#viz>g").css({"opacity":""});
 
+    		
     	}
     }
     
@@ -1923,9 +1999,9 @@ $doc.ready(function(){
     }
 
     function accident(){
-console.log('aaya');
+
     	if(day==0)
-    	{	console.log('andar');
+    	{	
 	    	const acci=anime.timeline({
 		    		duration:1000,
 		    		easing:"easeOutExpo"
