@@ -930,7 +930,7 @@ $doc.ready(function(){
 						 $loaderAnim.remove();
 					},4000);
 					
-					//$video.get(0).play();   //playvideo on button click
+					$video.get(0).play();   //playvideo on button click
 
 					
 					//$svg.drawsvg('progress',0);
@@ -1258,15 +1258,15 @@ $doc.ready(function(){
 
 
 
-				//without video play
+			/*	//without video play
 					//$svg.drawsvg('progress',0.065);
 					//$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen});
 					$('body').css({"overflow-y":"scroll"});
 					$('#one>p').animate({"opacity":"1"},100);
 					$('#section10').css('opacity','1');
 					start=1;
-				
-			/*	//video play
+			*/	
+				//video play
 				$video.on('ended',function(){
 					$video.animate({"opacity":"0s"},23000,"swing");
 					$('#one>p').animate({"opacity":"1"},100);
@@ -1280,7 +1280,7 @@ $doc.ready(function(){
    			     	$('body').css({"overflow-y":"scroll"});
    			     	start=1;
     			});
-    		*/	
+    			
     			
 
    			 });
