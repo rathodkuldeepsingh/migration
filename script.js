@@ -878,6 +878,9 @@ $doc.ready(function(){
 	  				//console.log(p);
 	  				//$svg.drawsvg('progress',p);
 	  				$scrollTop=$win.scrollTop();
+
+	  				console.log($scrollTop);
+
 	  				if($scrollTop>10)
 			   		{
 			   			$('#section10').css('opacity','0');
@@ -958,7 +961,8 @@ $doc.ready(function(){
 					switch($(this).index()){
 						case 0: $('.intro').fadeIn('slow');
 								$win.scrollTop(0); break;
-						case 1: /*open scale viz*/ break;
+						case 1: $('.intro').fadeIn('fast');
+								$win.scrollTop('7500'); break;
 						case 2: /*open overview*/break;
 						case 3: /*open aboutus*/ break;
 						default: break
@@ -1132,7 +1136,7 @@ $doc.ready(function(){
 								setTimeout(function(){
 									if(popup==0)
 									{	
-										//$(".edge_viz").find(".temp").last().remove();
+										$(".edge_viz").find(".temp").last().remove();
 									}
 								},500);
 								}
@@ -1257,8 +1261,8 @@ $doc.ready(function(){
 
 
 
-
-			/*	//without video play
+			/*	
+				//without video play
 					//$svg.drawsvg('progress',0.065);
 					//$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen});
 					$('body').css({"overflow-y":"scroll"});
@@ -1523,7 +1527,7 @@ $doc.ready(function(){
 		}
 		else {
 			
-			$('#map').fadeOut('slow',function(){});
+			//$('#map').fadeOut('slow',function(){});
 			$twelve.find(".cone").remove();
 			$twelve.find(".circle").remove();
 			$twelve.find(".circle1").remove();
@@ -2158,7 +2162,21 @@ $doc.ready(function(){
     	var link=0;
 
     	switch(week)
-    	{
+    	{	case "week1":  if (index==1)
+			    			{	headline="2 migrant workers died in a road accident";
+			    				link="https://timesofindia.indiatimes.com/city/surat/speeding-goods-train-kills-two-women-labourers-at-vapi/articleshow/74867702.cms";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
+
+			case "week5":  if (index==1)
+			    			{	headline="Parvez Ansari (19) died due to denial of timely care";
+			    				link="https://indianexpress.com/article/cities/ahmedabad/ahmedabad-ailing-teen-cops-rescued-after-sos-video-passes-away-in-hospital-6376586/";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
     		
     		case "week8":  if (index==1)
 			    			{	headline="Sudhir Singh (28) committed suicide due to financial distress and unable to go home";
@@ -2452,16 +2470,16 @@ $doc.ready(function(){
 			    				link="#";
 			    			} break;
 
-    		case "week8":  if (index==1)
+    		case "week8":  if (index==3)
 			    			{	headline="Parshuram (42), Rahul (22) died in a road accident";
 			    				link="https://timesofindia.indiatimes.com/city/varanasi/two-killed-7-injured-after-truck-carrying-migrants-overturns/articleshow/75682487.cms";
-			    			}else if(index==2){
+			    			}else if(index==8){
 			    					headline="Aarti Singh died due to exhaustion while migration";
 			    					link="https://timesofindia.indiatimes.com/city/meerut/girl-walking-back-home-from-greater-noida-dies-in-bulandshahr/articleshow/75705269.cms";
-			    			}else if(index==3){
+			    			}else if(index==11){
 			    					headline="Shivkumar Das (25) died in a road accident";
 			    					link="https://khabar.ndtv.com/news/india/2-migrants-killed-in-haryana-and-up-run-over-by-car-amid-corona-lockdown-2227218";
-			    			}else if(index==4){
+			    			}else if(index==7){
 			    					headline="Ram Kripal (65) died due to exhaustion";
 			    					link="https://www.news18.com/news/india/migrant-worker-walks-hitch-hikes-over-1500-kms-from-mumbai-to-up-dies-of-exhaustion-after-reaching-home-2617269.html";
 			    			}else if(index==5){
@@ -2470,10 +2488,10 @@ $doc.ready(function(){
 			    			}else if(index==6){
 			    					headline=" Manisha (25)died due to exhaustion while walking";
 			    					link="http://www.jhansitimes.com/death-of-pregnant-woman-reached-home-on-foot-from-jharkhand-questions-raised-on-government-claims";
-			    			}else if(index==7){
+			    			}else if(index==4){
 			    					headline="Sundari, Sher Bahadur Gautam died in a road accident";
 			    					link="https://thewire.in/labour/six-migrant-workers-killed-road-accident";
-			    			}else if(index==8){
+			    			}else if(index==2){
 			    					headline="Shishupal (32), his brother Jeetendra (30) and uncle Mohan Nishad (40) died in a road accident";
 			    					link="https://thewire.in/labour/six-migrant-workers-killed-road-accident";
 			    			}else if(index==9){
@@ -2482,7 +2500,7 @@ $doc.ready(function(){
 			    			}else if(index==10){
 			    					headline="Ashok Chaudhary (45),Choti (36) died in a road accident";
 			    					link="https://timesofindia.indiatimes.com/city/kanpur/migrant-couple-dies-in-mishap-son-survives/articleshow/75782956.cms";
-			    			}else if(index==11){
+			    			}else if(index==1){
 			    					headline=" 27 migrant workers died in a road accident";
 			    					link="https://www.deccanherald.com/national/north-and-central/auraiya-tragedy-death-toll-climbs-to-27-as-man-succumbs-to-injuries-839114.html";
 			    			}else if(index==12){
@@ -2498,25 +2516,25 @@ $doc.ready(function(){
 			    				headline="No Data Found";
 			    				link="#";
 			    			} break;
-    		case "week9": if (index==1)
+    		case "week9": if (index==7)
 			    			{	headline=" Vipin Kumar (19) died due to exhaustion while walking";
 			    				link="https://timesofindia.indiatimes.com/city/lucknow/walking-from-ludhiana-to-hardoi-migrant-dies/articleshow/75863677.cms";
-			    			}else if(index==2){
+			    			}else if(index==3){
 			    					headline="Ramji, 28, and Surendra Kumar Anchal, 40. died in a road accident";
 			    					link="https://www.ndtv.com/india-news/two-migrant-workers-killed-20-injured-in-accident-on-agra-lucknow-expressway-in-uttar-pradesh-police-2231106";
-			    			}else if(index==3){
+			    			}else if(index==1){
 			    					headline="3 migrant workers died in a road accident";
 			    					link="https://timesofindia.indiatimes.com/city/kanpur/uttar-pradesh-three-migrant-workers-killed-as-truck-carrying-them-overturns-in-mahoba/articleshow/75818555.cms";
-			    			}else if(index==4){
+			    			}else if(index==6){
 			    					headline="Liban Miyan (5) died in a road accident";
 			    					link="https://www.jagran.com/uttar-pradesh/kanpur-city-truck-and-troller-clash-with-migrant-workers-child-dead-20286446.html";
 			    			}else if(index==5){
 			    					headline="Ibrar Ahmed (33) Shramik train death, dehydration, exhaustion, lack of timely medical care";
 			    					link="https://www.news18.com/news/india/death-in-shramik-special-for-the-next-three-hours-i-sat-next-to-ibrars-corpse-2643109.html";
-			    			}else if(index==6){
+			    			}else if(index==4){
 			    					headline="Nizammudin, Intezaar died in a road accident";
 			    					link="https://navbharattimes.indiatimes.com/state/uttar-pradesh/bulandshahr/two-migrants-workers-killed-in-road-accident-near-bulandshahr/articleshow/75887848.cms";
-			    			}else if(index==7){
+			    			}else if(index==2){
 			    					headline="Raju Singh (26), Saurav Kumar (23) and Amit Singh (26) died in a road accident";
 			    					link="https://www.newindianexpress.com/nation/2020/may/22/3-migrant-workers-from-bihars-gopalganj-killed-1-seriously-hurt-in-road-accident-in-ups-mirzapur-2146686.html";
 			    			}else if(index==8){
@@ -2600,6 +2618,13 @@ $doc.ready(function(){
     		case "week1" : if (index==1)
 			    			{	headline="8 Migrant workers died in a road accident";
 			    				link="https://indianexpress.com/article/cities/hyderabad/india-lockdown-hyderabad-migrant-labourers-accident-6335807/?fbclid=IwAR3cSta5cPjibyt52giqm76vJRx9_Thuxjo39SmdBPkYnQmvbyYWTjEAN2M";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
+    		case "week2" : if (index==1)
+			    			{	headline="Logesh Balasubramani (23) died due to exhaustion";
+			    				link="https://www.ndtv.com/india-news/coronavirus-covid-19-lockdown-tamil-nadu-mans-500-km-walk-amid-lockdown-becomes-his-last-2205155";
 			    			}else{
 			    				headline="No Data Found";
 			    				link="#";
@@ -2764,13 +2789,13 @@ $doc.ready(function(){
 			    				link="#";
 			    			} break;
     		
-    		case "week6" :   if (index==1)
+    		case "week6" :   if (index==3)
 			    			{	headline="1 migrant worker died by falling in to river while walking on rail bridge";
 			    				link="https://ia601503.us.archive.org/26/items/NonVirusDeaths/english-2020-05-01.jpeg";
 			    			}else if(index==2){
 			    					headline="Bajinath kumar yadav (22), Subodh Kumar Sao (25) hit by train while walking";
 			    					link="https://ia601503.us.archive.org/26/items/NonVirusDeaths/english-2020-05-01.jpeg";
-			    			}else if(index==3){
+			    			}else if(index==1){
 			    					headline="Gopal Pandey, Usha Devi, Gunjan, Sunil died in a road accident";
 			    					link="https://www.ndtv.com/cities/jharkhand-ranchi-couple-cycling-to-patna-hitches-ride-on-truck-killed-in-accident-2222283";
 			    			}else{
@@ -3038,7 +3063,27 @@ function Maharashtrac(week,index)
 
     	switch(week)
     	{
-    		
+    		case "week1": if (index==1)
+			    			{	headline="A migrant worker died in  a road accident";
+			    				link="https://beyondheadlines.in/2020/03/deaths-due-to-lockdown/";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
+			case "week2": if (index==1)
+			    			{	headline="Sagar Deoria(38) committed suicide due to financial and food crisis";
+			    				link="https://www.orissapost.com/man-commits-suicide-owing-to-financial-crisis-amid-21-day-lockdown/";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
+			case "week6": if (index==1)
+			    			{	headline="1 migrant worker died in a road accident";
+			    				link="https://economictimes.indiatimes.com/news/politics-and-nation/1-killed-as-bus-ferrying-odia-migrants-from-gujarat-meets-with-accident/articleshow/75511733.cms?from=mdr";
+			    			}else{
+			    				headline="No Data Found";
+			    				link="#";
+			    			} break;
     		case "week8": if (index==1)
 			    			{	headline="Surendra Behera (35) committed suicide in quarantine center";
 			    				link="https://odishabytes.com/tamil-nadu-returnee-commits-suicide-at-quarantine-centre-in-odisha/";

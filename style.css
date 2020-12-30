@@ -238,7 +238,7 @@ section>p:first-child{
     border-radius: 2vh;
     left: 50%;
     transform: translateX(-50%);
-    top: 35.5vh;
+    top: 35vh;
 }
 
 #timeline>div{
@@ -252,13 +252,13 @@ section>p:first-child{
     border-radius: 2vh 0 0 2vh;
 }
 #ld2{
-	background: #868585;
-}
-#ld3{
 	background: #bdbdbd;
 }
+#ld3{
+	background: #868585;
+}
 #ld4{
-	background: #111111;
+	background: #565656;
 	border-radius: 0 2vh 2vh 0;
 }
 #timeline>div>p{
@@ -856,7 +856,7 @@ button{
 
  .overview{
  	background:#101010;
- 	z-index: 30;
+ 	z-index: 3;
  }
   .overview.hide{
   display: none;
