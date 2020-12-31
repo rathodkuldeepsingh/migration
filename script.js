@@ -1313,6 +1313,8 @@ $doc.ready(function(){
    			 		//$svg.drawsvg('progress',0.065);
    			 		
 					//$svg_pencil.drawsvg('progress',0);
+					$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen*0.98});
+					$(".wrapper5>svg>path").css({'stroke-dasharray':$svg2len*0.01+","+$svg2len*0.98});
        			 	$('#section10').css('opacity','1');
    			    	//$("#pencil").css({'stroke-dasharray':"10,"+$svglen});
    			     	$('body').css({"overflow-y":"scroll"});
