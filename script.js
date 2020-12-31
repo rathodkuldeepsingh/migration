@@ -3,6 +3,7 @@ var $doc = $(document),
   			    $svg = $('#base').drawsvg(),
   			    $svg_pencil = $('.wrapper2>svg').drawsvg(),
   			    $svg2 = $('.wrapper3>svg').drawsvg(),
+  			    $svg2_pencil = $('.wrapper5>svg').drawsvg(),
   			    $svg_move= $('.wrapper4>svg').drawsvg(),
   			   
   			    $one = $('#one'),
@@ -22,6 +23,7 @@ var $doc = $(document),
   			    $cover = $('.cover'),
   			    story=0;
   			    $svglen=$("#pencil").get(0).getTotalLength(),
+  			    $svg2len=$(".wrapper5>svg>path").get(0).getTotalLength(),
   			    $scrollTop=0,
    			    max = $doc.height() - $win.height(),
    			    story=0,
@@ -313,7 +315,8 @@ $doc.ready(function(){
 	    })
 
 	    scene4.on("progress", e=>{
-	    
+	    	
+	    	//$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen*0.99});
 	    
 			if(e.progress>=0.5)
 			{
@@ -566,7 +569,12 @@ $doc.ready(function(){
 	    		}
 	    	}
 	    	else {
-	    		$map.css({'fill':'#fff'});
+	    		$map.css({'fill':'#fff', 'opacity':'1'});
+	    		$('#IN-DL').css('transform','translate(0,0)  rotate3d(1, 0, 0, 0deg) scale(1)');
+	    		$('#IN-PB').css('transform','translate(0,0)  rotate3d(1, 0, 0, 0deg) scale(1)');
+	    		$('#IN-MH').css('transform','translate(0,0)  rotate3d(1, 0, 0, 0deg) scale(1)');
+	    		$('#IN-UP').css('transform','translate(0,0)  rotate3d(1, 0, 0, 0deg) scale(1)');
+	    		$('#IN-GJ').css('transform','translate(0,0)  rotate3d(1, 0, 0, 0deg) scale(1)');
 	    		if(viz_toggle!=0)
 	    		{
 	    			viz_toggle=0;
@@ -794,6 +802,7 @@ $doc.ready(function(){
 	    					
 	    					day=0;
 	    					//show just the auto
+	    					$('.story>.back').removeClass('white');
 	    					
 	    				}
 	    				else if(e.progress>=a[10] && e.progress<a[11]){
@@ -817,7 +826,7 @@ $doc.ready(function(){
 	    						$('.story').css('background','black');
 	    						$('.story-txt').addClass('white');
 	    						$('.background#b6').addClass('hide');
-	    						$('.back').addClass('white');
+	    						$('.story>.back').addClass('white');
 	    					},700);
 
 	    					setTimeout(function(){
@@ -833,7 +842,7 @@ $doc.ready(function(){
 							$('.background#b1').removeClass('hide');
 							var opacity=(e.progress-a[11])*(1)/(a[12]-a[11]);
 	    					//fade empty chair animation
-	    					console.log(opacity)
+	    					
 	    					$('.background#b1').css('opacity',1-opacity);
 	    					$('.background#b7').css('opacity',opacity*3);
 
@@ -890,6 +899,7 @@ $doc.ready(function(){
 			   		if($scrollTop>11550)
 			   		{
 			   			$(".intro").fadeOut('fast');
+			   			menuSwitch("3");
 			   		}
 
 
@@ -905,6 +915,8 @@ $doc.ready(function(){
 	  				setInterval(() => {
 	   			    		
 	   			    		pos_pencil=pos+0.004*start;
+	   			    		pos_pencil2=pos2+0.004*start;
+
 	   			    		delay +=(pos- delay)*accelamount;
 	   			    		delay2 +=(pos2- delay2)*accelamount;
 	   			    		delay3 +=(pos_mov- delay3)*accelamount;
@@ -913,7 +925,9 @@ $doc.ready(function(){
 	   			    		$svg_move.drawsvg('progress',delay3);
 	   			    		
 	   			    		
-	   			    		//$svg_pencil.drawsvg('progress',delay2);
+	   			    		$svg_pencil.drawsvg('progress',pos_pencil);
+
+	   			    		$svg2_pencil.drawsvg('progress',pos_pencil2);
 	   
 	   			    }, 30);
 
@@ -962,9 +976,17 @@ $doc.ready(function(){
 						case 0: $('.intro').fadeIn('slow');
 								$win.scrollTop(0); break;
 						case 1: $('.intro').fadeIn('fast');
-								$win.scrollTop('7500'); break;
+								$win.scrollTop('7600'); 
+								$('#map').fadeIn('fast',function(){});
+								$('#map').css('fill','#fff');
+								$('#text1').addClass('hide');
+								$('#text2').addClass('hide');
+								$('#text3').addClass('hide');
+								$('#text4').addClass('hide');
+
+								break;
 						case 2: /*open overview*/break;
-						case 3: /*open aboutus*/ break;
+						case 3: $('.about').fadeIn('slow'); break;
 						default: break
 					}
 
@@ -1011,7 +1033,7 @@ $doc.ready(function(){
 				});
 
 
-				$(".back").click(function(){
+				$(".story>.back").click(function(){
 					if($('.story').hasClass('up'))
 					{	
 						resetStory();
@@ -1019,6 +1041,14 @@ $doc.ready(function(){
 						$('.overview').removeClass('hide');
 						
 					}
+				});
+				$(".about>.back").click(function(){
+					if($('.about').length>0)
+					{
+						$('.about').fadeOut('slow');
+					}
+					menuSwitch(3);
+
 				});
 
 
@@ -1033,16 +1063,19 @@ $doc.ready(function(){
 						  	if($win.scrollTop()>$twelve.offset().top && $win.scrollTop()<$twelve.offset().top+$twelve.height()*0.33)
 			   				{  var a=this.id;
 							     $(this).css({"stroke":"yellow","stroke-width":"3"});
+							    $twelve.append("<div class='temp'></div>");
 							    drawMapData(a);
 							    
-							    var topofpopup=givepos($('#'+a))[1]-$('#twelve.temp').height()-50;
+							    var topofpopup=givepos($('#'+a))[1]-180;
 							   
+							   console.log(topofpopup+" , "+$scrollTop);
 
-							    $('#twelve.temp').offset({left:givepos($('#'+a))[0], top:(topofpopup)<$scrollTop? $scrollTop: topofpopup});
+							    $('#twelve>.temp').offset({left:givepos($('#'+a))[0], top:(topofpopup)<$scrollTop? $scrollTop: topofpopup});
 							    
 						    }
 						  }, function() {
 						    $( this ).css( {"stroke":"","stroke-width":""});
+						    
 						    $twelve.find(".temp").last().remove();
 						  }
 						);
@@ -1087,7 +1120,7 @@ $doc.ready(function(){
 
 						},function(){
 							var id=this.id.split("_");
-							console.log("vapas");
+							
 							switch(id[1])
 							{	
 								case "name": highlightState(id[0],0); break;
@@ -1261,10 +1294,11 @@ $doc.ready(function(){
 
 
 
-			/*	
-				//without video play
+				
+			/*	//without video play
 					//$svg.drawsvg('progress',0.065);
-					//$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen});
+					$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen*0.98});
+					$(".wrapper5>svg>path").css({'stroke-dasharray':$svg2len*0.01+","+$svg2len*0.98});
 					$('body').css({"overflow-y":"scroll"});
 					$('#one>p').animate({"opacity":"1"},100);
 					$('#section10').css('opacity','1');
@@ -1298,9 +1332,13 @@ $doc.ready(function(){
 			
 			
 			//if($("#map").is(":hidden")){
-                $('#map').fadeIn('slow',function(){});
-				$('.circle').fadeOut('slow');
-				$('.cone').fadeOut('slow');
+                $('#map').fadeIn('fast',function(){});
+				$('.circle').fadeOut('fast');
+				$('.cone').fadeOut('fast');
+				$('#text-4').removeClass('hide');
+				$('#text-1').addClass('hide');
+				$('#text-2').addClass('hide');
+				$('#text-3').addClass('hide');
             //} 
 			//draw viz
 			
@@ -1382,8 +1420,9 @@ $doc.ready(function(){
 		}
 		else if(a==2)
 		{			
-					$('.fixed-top#text-1').fadeIn('slow');
-					$('#text-4').fadeOut('fast');
+					$('.fixed-top#text-1').removeClass('hide');
+					$('#text-4').addClass('hide');
+					$('.fixed-top#text-2').addClass('hide');
 					
 					$('#IN-MH').css('transform','translate(1vw, 39vh) rotate3d(1, 0, 0, 45deg)');
 					$('#IN-GJ').css('transform','translate(26vw, 45vh) rotate3d(1, 0, 0, 45deg)');
@@ -1394,35 +1433,69 @@ $doc.ready(function(){
 				   
 					if($('.mh').length==0)
 					{	$twelve.append("<div class='cone mh'></div>");
-						$twelve.append("<div class='circle mh'></div>");
+						$twelve.append("<div class='circle mh show'></div>");
+						
 						$('.mh').offset({left:givepos($('#IN-MH'))[0]+$('#IN-MH')[0].getBBox().width/2});
 					}
 					if($('.up').length==0 )
 					{	$twelve.append("<div class='cone up'></div>");
-						$twelve.append("<div class='circle up'></div>");
+						$twelve.append("<div class='circle up show'></div>");
+						
 						$('.up').offset({left:givepos($('#IN-UP'))[0]+$('#IN-UP')[0].getBBox().width/2});
 					}
 					if($('.gj').length==0 )
 					{	$twelve.append("<div class='cone gj'></div>");
-						$twelve.append("<div class='circle gj'></div>");
+						$twelve.append("<div class='circle gj show'></div>");
+						
 						$('.gj').offset({left:givepos($('#IN-GJ'))[0]+$('#IN-GJ')[0].getBBox().width/2});
 					}
 					if($('.dl').length==0 )
 					{	$twelve.append("<div class='cone dl'></div>");
-						$twelve.append("<div class='circle dl'></div>");
+						$twelve.append("<div class='circle dl show'></div>");
+						
 						$('.dl').offset({left:(givepos($('#IN-DL'))[0]+$('#IN-DL')[0].getBBox().width/2)});
 					}
 					if($('.pb').length==0 )
 					{	$twelve.append("<div class='cone pb'></div>");
-						$twelve.append("<div class='circle pb'></div>");
+						$twelve.append("<div class='circle pb show'></div>");
+						
 						$('.pb').offset({left:(givepos($('#IN-PB'))[0]+$('#IN-PB')[0].getBBox().width/2)});
 					}
-				
+					$twelve.find('.circle.mh').removeClass('inv');
+					$twelve.find('.circle.up').removeClass('inv');
+					$twelve.find('.circle.gj').removeClass('inv');
+					$twelve.find('.circle.dl').removeClass('inv');
+					$twelve.find('.circle.pb').removeClass('inv');
 					$('.circle').fadeIn('slow');
 					$('.cone').fadeIn('slow');
 					$('.circle1').fadeOut('slow');	
+					$('.circle').remove('move');
 					
-
+					if($('.mh-txt').length==0)
+					{	$twelve.append("<div class='mh-txt'><span id='name'>"+"Maharashtra"+"<br></span><span id='total'>"+"Total Migrants:  5,73,76,776"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"90,87,380"+"</span></div></div>");	
+						$('.mh-txt').offset({left:givepos($('#IN-MH'))[0]});
+					}
+					if($('.gj-txt').length==0)
+					{	$twelve.append("<div class='gj-txt'><span id='name'>"+"Gujarat"+"<br></span><span id='total'>"+"Total Migrants:  2,68,98,286"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"39,16,075"+"</span></div></div>");	
+						$('.gj-txt').offset({left:givepos($('#IN-GJ'))[0]});
+					}
+					if($('.up-txt').length==0)
+					{	$twelve.append("<div class='up-txt'><span id='name'>"+"Uttar Pradesh"+"<br></span><span id='total'>"+"Total Migrants:  5,64,52,083"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"40,61,933"+"</span></div></div>");	
+						$('.up-txt').offset({left:givepos($('#IN-UP'))[0]});
+					}
+					if($('.pb-txt').length==0)
+					{	$twelve.append("<div class='pb-txt'><span id='name'>"+"Punjab"+"<br></span><span id='total'>"+"Total Migrants:  1,37,35,616"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"24,88,299"+"</span></div></div>");	
+						$('.pb-txt').offset({left:givepos($('#IN-PB'))[0]});
+					}
+					if($('.dl-txt').length==0)
+					{	$twelve.append("<div class='dl-txt'><span id='name'>"+"Delhi"+"<br></span><span id='total'>"+"Total Migrants:  72,24,514"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"63,30,065"+"</span></div></div>");	
+						$('.dl-txt').offset({left:givepos($('#IN-DL'))[0]});
+					}
+					$('.mh-txt').fadeIn('slow');
+					$('.gj-txt').fadeIn('slow');
+					$('.up-txt').fadeIn('slow');
+					$('.pb-txt').fadeIn('slow');
+					$('.dl-txt').fadeIn('slow');
 
 
 
@@ -1430,96 +1503,195 @@ $doc.ready(function(){
 		}
 		else if(a==3){
 			
-			$('.fixed-top#text-1').fadeOut('slow');
-			$('.fixed-top#text-2').fadeIn('slow');
-			$('.fixed-top#text-3').fadeOut('fast');
-
+			$('.fixed-top#text-1').addClass('hide');
+			$('.fixed-top#text-2').removeClass('hide');
+			$('.fixed-top#text-3').addClass('hide');
+			$('.circle1').fadeIn('slow');
+			$('.circle').addClass('move');
 			
 
 
 				if($('.mh-ext').length==0)
 				{
 					$twelve.append("<div class='circle1 mh-ext'></div>");
+					$twelve.find('.circle.mh').addClass('inv');
 					$('.mh-ext').offset({left:givepos($('.circle.mh'))[0]+$('.circle.mh').width()/2, top:givepos($('.circle.mh'))[1]+$('.circle.mh').height()/2});
 				}
 				if($('.up-ext').length==0)
 				{
 					$twelve.append("<div class='circle1 up-ext'></div>");
+					$twelve.find('.circle.up').addClass('inv');
 					$('.up-ext').offset({left:givepos($('.circle.up'))[0]+$('.circle.up').width()/2, top:givepos($('.circle.up'))[1]+$('.circle.up').height()/2});
 				}
 				if($('.gj-ext').length==0)
 				{
 					$twelve.append("<div class='circle1 gj-ext'></div>");
+					$twelve.find('.circle.gj').addClass('inv');
 					$('.gj-ext').offset({left:givepos($('.circle.gj'))[0]+$('.circle.gj').width()/2, top:givepos($('.circle.gj'))[1]+$('.circle.gj').height()/2});
 				}
 				if($('.dl-ext').length==0)
 				{	
 					$twelve.append("<div class='circle1 dl-ext'></div>");
+					$twelve.find('.circle.dl').addClass('inv');
 					$('.dl-ext').offset({left:givepos($('.circle.dl'))[0]+$('.circle.dl').width()/2, top:givepos($('.circle.dl'))[1]+$('.circle.dl').height()/2});
 				}
 				if($('.pb-ext').length==0)
 				{	
 					$twelve.append("<div class='circle1 pb-ext'></div>");
+					$twelve.find('.circle.pb').addClass('inv');
 					$('.pb-ext').offset({left:givepos($('.circle.pb'))[0]+$('.circle.pb').width()/2, top:givepos($('.circle.pb'))[1]+$('.circle.pb').height()/2});
 				}
-				if($('.mh').length==0)
+				if($('.circle.mh').length==0)
 				{	
 					$twelve.append("<div class='circle mh'></div>");
+					$twelve.find('.circle.mh').addClass('inv');
 					$('.mh').offset({left:givepos($('#IN-MH'))[0]+$('#IN-MH')[0].getBBox().width/2});
 				}
-				if($('.up').length==0 )
+				if($('.circle.up').length==0 )
 				{	
 					$twelve.append("<div class='circle up'></div>");
+					$twelve.find('.circle.up').addClass('inv');
 					$('.up').offset({left:givepos($('#IN-UP'))[0]+$('#IN-UP')[0].getBBox().width/2});
 				}
-				if($('.gj').length==0 )
+				if($('.circle.gj').length==0 )
 				{	
 					$twelve.append("<div class='circle gj'></div>");
+					$twelve.find('.circle.gj').addClass('inv');
 					$('.gj').offset({left:givepos($('#IN-GJ'))[0]+$('#IN-GJ')[0].getBBox().width/2});
 				}
-				if($('.dl').length==0 )
+				if($('.circle.dl').length==0 )
 				{	
 					$twelve.append("<div class='circle dl'></div>");
+					$twelve.find('.circle.dl').addClass('inv');
 					$('.dl').offset({left:(givepos($('#IN-DL'))[0]+$('#IN-DL')[0].getBBox().width/2)});
 				}
-				if($('.pb').length==0 )
+				if($('.circle.pb').length==0 )
 				{	
 					$twelve.append("<div class='circle pb'></div>");
+					$twelve.find('.circle.pb').addClass('inv');
 					$('.pb').offset({left:(givepos($('#IN-PB'))[0]+$('#IN-PB')[0].getBBox().width/2)});
 				}
+				
+				
 
 
+			
 			$twelve.find(".circle1").fadeIn('slow');
 			$twelve.find(".circle").fadeIn('slow');
-			
+			$twelve.find(".circle1").removeClass('show');
+			$twelve.find(".cone").remove();
 			//$twelve.find("#map").last().remove();
 			
 		}
 		else if(a==4){
 
-			$('.fixed-top#text-2').fadeOut('fast');
-			$('.fixed-top#text-3').fadeIn('slow');
+			$('.fixed-top#text-2').addClass('hide');
+			$('.fixed-top#text-3').removeClass('hide');
 
-			$twelve.find(".circle").fadeOut('slow');
+			if($('.mh').length==0)
+			{	$twelve.append("<div class='cone mh'></div>");
+				$twelve.append("<div class='circle mh'></div>");
+				$('.mh').offset({left:givepos($('#IN-MH'))[0]+$('#IN-MH')[0].getBBox().width/2});
+			}
+			if($('.up').length==0 )
+			{	$twelve.append("<div class='cone up'></div>");
+				$twelve.append("<div class='circle up'></div>");
+				$('.up').offset({left:givepos($('#IN-UP'))[0]+$('#IN-UP')[0].getBBox().width/2});
+			}
+			if($('.gj').length==0 )
+			{	$twelve.append("<div class='cone gj'></div>");
+				$twelve.append("<div class='circle gj'></div>");
+				$('.gj').offset({left:givepos($('#IN-GJ'))[0]+$('#IN-GJ')[0].getBBox().width/2});
+			}
+			if($('.dl').length==0 )
+			{	$twelve.append("<div class='cone dl'></div>");
+				$twelve.append("<div class='circle dl'></div>");
+				$('.dl').offset({left:(givepos($('#IN-DL'))[0]+$('#IN-DL')[0].getBBox().width/2)});
+			}
+			if($('.pb').length==0 )
+			{	$twelve.append("<div class='cone pb'></div>");
+				$twelve.append("<div class='circle pb'></div>");
+				$('.pb').offset({left:(givepos($('#IN-PB'))[0]+$('#IN-PB')[0].getBBox().width/2)});
+			}
+
+
+			
 			$twelve.find(".circle1").css("transform","translate(-50%, -50%) scale(1.5)");
 			$twelve.find(".circle1").addClass('show');
 
 			$('#map').fadeIn('slow',function(){});
-			$twelve.find(".cone").remove();
+			
 			$twelve.find(".circle").remove();
 			//$twelve.find("#map").last().remove();
+
+			if($('.mh-txt').length==0)
+			{	$twelve.append("<div class='mh-txt'><span id='name'>"+"Maharashtra"+"<br></span><span id='total'>"+"Total Migrants:  5,73,76,776"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"90,87,380"+"</span></div></div>");	
+				$('.mh-txt').offset({left:givepos($('#IN-MH'))[0]});
+			}
+			if($('.gj-txt').length==0)
+			{	$twelve.append("<div class='gj-txt'><span id='name'>"+"Gujarat"+"<br></span><span id='total'>"+"Total Migrants:  2,68,98,286"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"39,16,075"+"</span></div></div>");	
+				$('.gj-txt').offset({left:givepos($('#IN-GJ'))[0]});
+			}
+			if($('.up-txt').length==0)
+			{	$twelve.append("<div class='up-txt'><span id='name'>"+"Uttar Pradesh"+"<br></span><span id='total'>"+"Total Migrants:  5,64,52,083"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"40,61,933"+"</span></div></div>");	
+				$('.up-txt').offset({left:givepos($('#IN-UP'))[0]});
+			}
+			if($('.pb-txt').length==0)
+			{	$twelve.append("<div class='pb-txt'><span id='name'>"+"Punjab"+"<br></span><span id='total'>"+"Total Migrants:  1,37,35,616"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"24,88,299"+"</span></div></div>");	
+				$('.pb-txt').offset({left:givepos($('#IN-PB'))[0]});
+			}
+			if($('.dl-txt').length==0)
+			{	$twelve.append("<div class='dl-txt'><span id='name'>"+"Delhi"+"<br></span><span id='total'>"+"Total Migrants:  72,24,514"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"63,30,065"+"</span></div></div>");	
+				$('.dl-txt').offset({left:givepos($('#IN-DL'))[0]});
+			}
+			
 			
 		}
 		else if(a==5){
 
-			$('.fixed-top#text-3').fadeOut('fast');
-			
+			$('.fixed-top#text-3').addClass('hide');
+			if($('.mh-ext').length==0)
+			{
+				$twelve.append("<div class='circle1 mh-ext'></div>");
+				$twelve.find('.circle.mh').addClass('inv');
+				$('.mh-ext').offset({left:givepos($('.circle.mh'))[0]+$('.circle.mh').width()/2, top:givepos($('.circle.mh'))[1]+$('.circle.mh').height()/2});
+			}
+			if($('.up-ext').length==0)
+			{
+				$twelve.append("<div class='circle1 up-ext'></div>");
+				$twelve.find('.circle.up').addClass('inv');
+				$('.up-ext').offset({left:givepos($('.circle.up'))[0]+$('.circle.up').width()/2, top:givepos($('.circle.up'))[1]+$('.circle.up').height()/2});
+			}
+			if($('.gj-ext').length==0)
+			{
+				$twelve.append("<div class='circle1 gj-ext'></div>");
+				$twelve.find('.circle.gj').addClass('inv');
+				$('.gj-ext').offset({left:givepos($('.circle.gj'))[0]+$('.circle.gj').width()/2, top:givepos($('.circle.gj'))[1]+$('.circle.gj').height()/2});
+			}
+			if($('.dl-ext').length==0)
+			{	
+				$twelve.append("<div class='circle1 dl-ext'></div>");
+				$twelve.find('.circle.dl').addClass('inv');
+				$('.dl-ext').offset({left:givepos($('.circle.dl'))[0]+$('.circle.dl').width()/2, top:givepos($('.circle.dl'))[1]+$('.circle.dl').height()/2});
+			}
+			if($('.pb-ext').length==0)
+			{	
+				$twelve.append("<div class='circle1 pb-ext'></div>");
+				$twelve.find('.circle.pb').addClass('inv');
+				$('.pb-ext').offset({left:givepos($('.circle.pb'))[0]+$('.circle.pb').width()/2, top:givepos($('.circle.pb'))[1]+$('.circle.pb').height()/2});
+			}
 
 			$twelve.find(".circle").fadeOut('slow');
 			$twelve.find(".circle1").css("transform","translate(-50%, -50%) scale(1.5)");
 			$twelve.find(".circle1").addClass('show');
 
 			$('#map').fadeOut('slow',function(){});
+			$('.mh-txt').remove();
+			$('.gj-txt').remove();
+			$('.up-txt').remove();
+			$('.pb-txt').remove();
+			$('.dl-txt').remove();
+			console.log('chala');
 			$twelve.find(".cone").remove();
 			$twelve.find(".circle").remove();
 			//$twelve.find("#map").last().remove();
@@ -1531,6 +1703,8 @@ $doc.ready(function(){
 			$twelve.find(".cone").remove();
 			$twelve.find(".circle").remove();
 			$twelve.find(".circle1").remove();
+			$('#map').fadeIn('fast',function(){});
+			$('.fixed-top#text-4').addClass('hide');
 			
 			
 		}
@@ -1800,7 +1974,7 @@ $doc.ready(function(){
     						state3_value="6,966";	break;     	
 
 
-    		default: 		total=a; 
+    		default: 		total="no value"; 
     						external="no value"; 
     						state1="no value";
     						state1_value="no value";
@@ -1810,7 +1984,7 @@ $doc.ready(function(){
     						state3_value="no value";  break;;
     	}
 
-    	$twelve.append("<div class='temp'><div><span id='name'>"+name+"</span><span id='total'>"+total+"</span><div><span id='small'> Other States </span><span id='small'>"+external+"</span></div></div><div><span id='small'>"+state1+"</span><span id='small'>"+state1_value+"</span></div><div><span id='small'>"+state2+"</span><span id='small'>"+state2_value+"</span></div><div><span id='small'>"+state3+"</span><span id='small'>"+state3_value+"</span></div></div>");
+    	$twelve.find('.temp').append("<div><span id='name'>"+name+"</span><span id='total'>"+total+"</span><div><span id='small'> Other States </span><span id='small'>"+external+"</span></div></div><div><span id='small'>"+state1+"</span><span id='small'>"+state1_value+"</span></div><div><span id='small'>"+state2+"</span><span id='small'>"+state2_value+"</span></div><div><span id='small'>"+state3+"</span><span id='small'>"+state3_value+"</span></div>");
 
 
 
@@ -2052,7 +2226,7 @@ $doc.ready(function(){
 		//$('.clk').addClass('color');
 		$('.clk').addClass('do');
     	
-    	console.log('hua');
+    	
     	
     }
 
@@ -3133,7 +3307,7 @@ function Maharashtrac(week,index)
     		case "week2": 	if (index==1)
 			    			{	headline="Gangamma(29) died due to starvation during migration";
 			    				link="https://vijaykarnataka.com/news/bellary/lockdown-in-karnataka-29-year-old-sindhanur-woman-dies-after-try-to-reach-home-by-walk-from-bengaluru/articleshow/75020447.cms";
-			    				console.log('sahi');
+			    				
 			    			}else{
 			    				headline="No Data Found";
 			    				link=0;
@@ -3142,7 +3316,7 @@ function Maharashtrac(week,index)
     		case "week7": if (index==1)
 			    			{	headline="Babulal Singh(46) died due to exhaustion";
 			    				link="https://timesofindia.indiatimes.com/city/hubballi/jkhand-bound-worker-dies-after-walking-for-100km/articleshow/75611691.cms";
-			    				console.log('sahi');
+			    			
 			    			}else{
 			    				headline="No Data Found";
 			    				link=0;
@@ -3167,4 +3341,27 @@ function Maharashtrac(week,index)
     	}
 
     	return [headline,link];
+    }
+
+    function menuSwitch(a)
+
+    {
+    	if($('.menu>.item:nth-child('+a+')').hasClass('active'))
+    	{
+
+    	}
+    	else{
+    		for(i=1;i<=4;i++)
+	    	{
+	    		if(i==a)
+	    		{
+	    			$('.menu>.item:nth-child('+i+')').addClass('active');
+	    			console.log("ident");
+	    		}
+	    		else{
+	    			$('.menu>.item:nth-child('+i+')').removeClass('active');
+	    		}
+	    	}
+    	}
+    	
     }
