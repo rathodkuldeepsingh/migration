@@ -511,7 +511,7 @@ div>#small:nth-child(2)
   font-weight: 700;
     font-size: 1.5em;
   position: absolute;
-  text-shadow: 0 0 5px black;
+  text-shadow: 0 0 9px black;
   transform: translate(-50%, -50%);
 }
 .circle.pb.move::before{
@@ -841,6 +841,10 @@ div>#small:nth-child(2)
 .dl-txt>#name{
   color:white;
   margin-bottom:1vh;
+}
+
+.det>#small:nth-child(2){
+  margin-left:5px;
 }
 
 .cone.up{
@@ -1535,7 +1539,7 @@ height: 54px;
 .menu{
      position: absolute;
     height: 30vh;
-    width: 9vw;
+    width: 12vw;
     left: 26px;
     top: 11vh;
     transition: left 0.3s ease-in-out;

@@ -53,7 +53,7 @@ $doc.ready(function(){
 		$('.story>.background#b1').css('transform', 'translate(20vw, 10vh)  scale('+($win.width()/2)/900+')');
 		$('.story>.background#b7').css('transform', 'translate(8vw, 10vh)  scale('+($win.width()/2)/900+')');
 
-},700);	
+},7000);	
 
 //SCROLL MAGIC. defining scenes for animating on scroll
     const controller2 = new ScrollMagic.Controller();
@@ -1311,10 +1311,9 @@ $doc.ready(function(){
        			   		//delay +=(0.09- delay)*accelamount;
    			    		//$svg.drawsvg('progress',delay);
    			 		//$svg.drawsvg('progress',0.065);
-   			 		
-					//$svg_pencil.drawsvg('progress',0);
-					$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen*0.98});
+   			 		$("#pencil").css({'stroke-dasharray':$svglen*0.007+","+$svglen*0.98});
 					$(".wrapper5>svg>path").css({'stroke-dasharray':$svg2len*0.01+","+$svg2len*0.98});
+					//$svg_pencil.drawsvg('progress',0);
        			 	$('#section10').css('opacity','1');
    			    	//$("#pencil").css({'stroke-dasharray':"10,"+$svglen});
    			     	$('body').css({"overflow-y":"scroll"});
@@ -1474,23 +1473,23 @@ $doc.ready(function(){
 					$('.circle').remove('move');
 					
 					if($('.mh-txt').length==0)
-					{	$twelve.append("<div class='mh-txt'><span id='name'>"+"Maharashtra"+"<br></span><span id='total'>"+"Total Migrants:  5,73,76,776"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"90,87,380"+"</span></div></div>");	
+					{	$twelve.append("<div class='mh-txt'><span id='name'>"+"Maharashtra"+"<br></span><span id='total'>"+"Total Migrants:  5,73,76,776"+"</span><div class='det'><span id='small'> Inter-state migrants </span><span id='small'>"+"90,87,380"+"</span></div></div>");	
 						$('.mh-txt').offset({left:givepos($('#IN-MH'))[0]});
 					}
 					if($('.gj-txt').length==0)
-					{	$twelve.append("<div class='gj-txt'><span id='name'>"+"Gujarat"+"<br></span><span id='total'>"+"Total Migrants:  2,68,98,286"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"39,16,075"+"</span></div></div>");	
+					{	$twelve.append("<div class='gj-txt'><span id='name'>"+"Gujarat"+"<br></span><span id='total'>"+"Total Migrants:  2,68,98,286"+"</span><div class='det'><span id='small'> Inter-state migrants </span><span id='small'>"+"39,16,075"+"</span></div></div>");	
 						$('.gj-txt').offset({left:givepos($('#IN-GJ'))[0]});
 					}
 					if($('.up-txt').length==0)
-					{	$twelve.append("<div class='up-txt'><span id='name'>"+"Uttar Pradesh"+"<br></span><span id='total'>"+"Total Migrants:  5,64,52,083"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"40,61,933"+"</span></div></div>");	
+					{	$twelve.append("<div class='up-txt'><span id='name'>"+"Uttar Pradesh"+"<br></span><span id='total'>"+"Total Migrants:  5,64,52,083"+"</span><div class='det'><span id='small'> Inter-state migrants </span><span id='small'>"+"40,61,933"+"</span></div></div>");	
 						$('.up-txt').offset({left:givepos($('#IN-UP'))[0]});
 					}
 					if($('.pb-txt').length==0)
-					{	$twelve.append("<div class='pb-txt'><span id='name'>"+"Punjab"+"<br></span><span id='total'>"+"Total Migrants:  1,37,35,616"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"24,88,299"+"</span></div></div>");	
+					{	$twelve.append("<div class='pb-txt'><span id='name'>"+"Punjab"+"<br></span><span id='total'>"+"Total Migrants:  1,37,35,616"+"</span><div class='det'><span id='small'> Inter-state migrants </span><span id='small'>"+"24,88,299"+"</span></div></div>");	
 						$('.pb-txt').offset({left:givepos($('#IN-PB'))[0]});
 					}
 					if($('.dl-txt').length==0)
-					{	$twelve.append("<div class='dl-txt'><span id='name'>"+"Delhi"+"<br></span><span id='total'>"+"Total Migrants:  72,24,514"+"</span><div><span id='small'> Inter-state migrants </span><span id='small'>"+"63,30,065"+"</span></div></div>");	
+					{	$twelve.append("<div class='dl-txt'><span id='name'>"+"Delhi"+"<br></span><span id='total'>"+"Total Migrants:  72,24,514"+"</span><div class='det'><span id='small'> Inter-state migrants </span><span id='small'>"+"63,30,065"+"</span></div></div>");	
 						$('.dl-txt').offset({left:givepos($('#IN-DL'))[0]});
 					}
 					$('.mh-txt').fadeIn('slow');
@@ -2081,7 +2080,7 @@ $doc.ready(function(){
     	else{
     		
     		$("#viz>g>path").each(function(){$(this).css('opacity','1')});
-    		//$('.flo_txt').text("");
+    		$('.flo_txt').text("");
     	}
     }
 
@@ -2130,7 +2129,7 @@ $doc.ready(function(){
     		$("#overview_viz>#viz>#"+a+"_in>path").css({"stroke-width":"","stroke":""});
     		$("#overview_viz>#viz>#"+a+"_out>path").css({"stroke-width":"","stroke":""});
     		$("#overview_viz>#viz>g#Lines").css({"stroke-width":"","stroke":""});
-    		$("#overview_viz>#viz>g#Lines>path").css({"opacity":"1"});
+    		$("#overview_viz>#viz>g#Lines>path").css("opacity","1");
     		$("#overview_viz>#viz>g").css({"opacity":""});
 
     		
